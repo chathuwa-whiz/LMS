@@ -2,7 +2,17 @@
 
 import mongoose from 'mongoose';
 
-const courseSchema = new Schema({
+const courseSchema = new mongoose.Schema({
+    _id: {
+        type: String,
+        required: true,
+        default: function() {
+            const category = this.category;
+            const year = new Date().getFullYear().toString().slice(2, 4);
+            const title = this.title.replace(/\s/g, '').toUpperCase();
+            return category + year + title;
+        }
+    },    
     title: { 
         type: String, 
         required: true, 
@@ -11,14 +21,9 @@ const courseSchema = new Schema({
         type: String, 
         required: true,
     },
-    instructor: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: 'User',
-        required: true,
-    },
     category: {
         type: String,
-        enum: ['Science', 'Math', 'History', 'English', 'Art', 'Music', 'Physical Education', 'Computer Science', 'Other'],
+        enum: ['IT', 'BS', 'EN', 'HS', 'AR'], // IT, Business, Engineering, Human Science, Architecture
         required: true,
     },
     price: {
@@ -32,51 +37,6 @@ const courseSchema = new Schema({
     },
 }, { timestamps: true });
 
-export const Course = mongoose.model('Course', courseSchema);
+const Course = mongoose.model('Course', courseSchema);
 
-const moduleSchema = new Schema({
-    courseId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Course',
-        required: true,
-    },
-    title: {
-        type: String,
-        required: true,
-    },
-    description: {
-        type: String,
-    },
-}, { timestamps: true });
-
-export const Module = mongoose.model('Module', moduleSchema);
-
-const lessonSchema = new Schema({
-    moduleId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Module',
-        required: true,
-    },
-    title: {
-        type: String,
-        required: true,
-    },
-    description: {
-        type: String,
-    },
-    contentType: {
-        type: String,
-        enum: ['Video', 'Text', 'Image', 'Audio', 'Other'],
-        required: true,
-    },
-    content: {
-        type: String,
-        required: true,
-    },
-    duration: {
-        type: Number,
-        required: true,
-    },
-}, { timestamps: true });
-
-export const Lesson = mongoose.model('Lesson', lessonSchema);
+export default Course;

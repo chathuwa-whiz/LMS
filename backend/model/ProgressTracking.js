@@ -28,3 +28,5 @@ const ProgressTrackingSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 const ProgressTracking = mongoose.model('ProgressTracking', ProgressTrackingSchema);
+
+export default ProgressTracking;

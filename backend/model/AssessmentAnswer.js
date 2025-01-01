@@ -27,4 +27,6 @@ const AssessmentAnswerSchema = new mongoose.Schema({
     },
 }, {timestamps: true});
 
-export const AssessmentAnswer = mongoose.model('AssessmentAnswer', AssessmentAnswerSchema);
+const AssessmentAnswer = mongoose.model('AssessmentAnswer', AssessmentAnswerSchema);
+
+export default AssessmentAnswer;
