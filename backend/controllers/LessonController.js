@@ -1,4 +1,4 @@
-import Lesson from "../model/Lesson";
+import Lesson from "../model/Lesson.js";
 
 // CREATE LESSON
 
