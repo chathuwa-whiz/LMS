@@ -22,14 +22,10 @@ const AssesmentSchema = new mongoose.Schema({
         type: [mongoose.Schema.Types.Mixed],
         required: false,
     },
-    tutor: {
+    lecture: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
-    },
-    questionsId: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: 'Question',
     },
     deadline: {
         type: Date,
@@ -40,6 +36,11 @@ const AssesmentSchema = new mongoose.Schema({
 export const Assesment = mongoose.model('Assesment', AssesmentSchema);
 
 const questionSchema = new mongoose.Schema({
+    assesmentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Assesment',
+        required: true,
+    },
     question: {
         type: String,
         required: true,
@@ -53,15 +54,16 @@ const questionSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    answers: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Response",
-    }],
 }, {timestamps: true});
 
 export const Question = mongoose.model('Question', questionSchema);
 
 const ResponseSchema = new mongoose.Schema({
+    questionId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Question',
+        required: true,
+    },
     answer: {
         type: mongoose.Schema.Types.Mixed,
         required: true,

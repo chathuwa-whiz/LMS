@@ -53,6 +53,10 @@ const moduleSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
+    lectures: {
+        type: [mongoose.Schema.Types.ObjectId],
+        required: false, // Not required for now
+    },
     instructors: {
         type: [mongoose.Schema.Types.ObjectId],
         required: false, // Not required for now

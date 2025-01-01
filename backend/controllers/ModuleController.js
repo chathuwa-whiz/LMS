@@ -98,7 +98,7 @@ export const deleteModule = async (req, res) => {
 
         await Lesson.deleteMany({ moduleId: id });
         
-        await module.delete();
+        await module.deleteOne();
 
         res.status(200).json({ message: "Module deleted with Lessons successfully" });
 

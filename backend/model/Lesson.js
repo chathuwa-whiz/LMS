@@ -26,6 +26,14 @@ const lessonSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    lecture: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false, // Not required for now
+    },
+    instructors: {
+        type: [mongoose.Schema.Types.ObjectId],
+        required: false, // Not required for now
+    },
 }, { timestamps: true });
 
 const Lesson = mongoose.model('Lesson', lessonSchema);
