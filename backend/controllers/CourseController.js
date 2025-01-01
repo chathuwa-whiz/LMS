@@ -1,4 +1,5 @@
 import Course from '../model/Course.js';
+import Lesson from '../model/Lesson.js';
 import Module from '../model/Module.js';
 
 // CREATE COURSE
@@ -88,12 +89,24 @@ export const updateCourse = async (req, res) => {
 
 export const deleteCourse = async (req, res) => {
     try {
-        const course = await Course.findById(req.params.id);
+        const { id } = req.params;
+
+        const course = await Course.findById(id);
 
         if (course) {
+            // Delete all modules and related lessons
+            const modules = await Module.find({ courseId: id });
+
+            // delete all lessons related to the modules
+            for(const module of modules) {
+                await Lesson.deleteMany({ moduleId: module._id });
+            }
+
+            // delete all modules related to the course
+            await Module.deleteMany({ courseId: id });
+
+            // delete the course
             await course.deleteOne();
-            
-            await Module.deleteMany({ courseId: req.params.id });
 
             res.status(200).json({ message: 'Course and related modules deleted successfully' });
 
