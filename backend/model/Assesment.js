@@ -62,7 +62,7 @@ const questionSchema = new mongoose.Schema({
 
 export const Question = mongoose.model('Question', questionSchema);
 
-const ResponseSchema = new mongoose.Schema({
+const AnswerSchema = new mongoose.Schema({
     questionId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Question',
@@ -87,4 +87,4 @@ const ResponseSchema = new mongoose.Schema({
     ],
 }, {timestamps: true});
 
-export const Response = mongoose.model('Response', ResponseSchema);
+export const Answer = mongoose.model('Answer', AnswerSchema);

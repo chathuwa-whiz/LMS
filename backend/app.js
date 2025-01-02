@@ -7,7 +7,7 @@ import lessonRoutes from './routes/LessonRoutes.js';
 
 import assesmentRoutes from './routes/AssesmentRoutes.js';
 import questionRoutes from './routes/AssesmentQuestionRoutes.js';
-import responseRoutes from './routes/AssesmentResponseRoutes.js';
+import answerRoutes from './routes/AssesmentAnswerRoutes.js';
 
 dotenv.config();
 
@@ -24,6 +24,6 @@ app.use('/api/lessons', lessonRoutes);
 
 app.use('/api/assesments', assesmentRoutes);
 app.use('/api/questions', questionRoutes);
-app.use('/api/responses', responseRoutes);
+app.use('/api/answers', answerRoutes);
 
 export default app;

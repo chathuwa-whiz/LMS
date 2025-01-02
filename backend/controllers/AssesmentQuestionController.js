@@ -1,4 +1,4 @@
-import { Question, Response } from "../model/Assesment.js";
+import { Question, Answer } from "../model/Assesment.js";
 
 // CREATE QUESTION
 
