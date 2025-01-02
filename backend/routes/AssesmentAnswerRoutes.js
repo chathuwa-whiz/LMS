@@ -1,4 +1,3 @@
-import { get } from 'mongoose';
 import { createAnswer, getAllAnswers, getAnswerById, updateAnswer, deleteAnswer } from '../controllers/AssesmentAnswerController.js';
 import express from 'express';
 

@@ -4,10 +4,12 @@ import dotenv from 'dotenv';
 import courseRoutes from './routes/CourseRoutes.js';
 import moduleRoutes from './routes/ModuleRoutes.js';
 import lessonRoutes from './routes/LessonRoutes.js';
-
 import assesmentRoutes from './routes/AssesmentRoutes.js';
 import questionRoutes from './routes/AssesmentQuestionRoutes.js';
 import answerRoutes from './routes/AssesmentAnswerRoutes.js';
+import studentAnswerRoutes from './routes/StudentAnswerRoutes.js';
+import enrollmentRoutes from './routes/EnrollmentRoutes.js';
+import userRoutes from './routes/UserRoutes.js';
 
 dotenv.config();
 
@@ -21,9 +23,11 @@ app.use(express.json());
 app.use('/api/courses', courseRoutes);
 app.use('/api/modules', moduleRoutes);
 app.use('/api/lessons', lessonRoutes);
-
 app.use('/api/assesments', assesmentRoutes);
 app.use('/api/questions', questionRoutes);
 app.use('/api/answers', answerRoutes);
+app.use('/api/student-answers', studentAnswerRoutes);
+app.use('/api/enrollments', enrollmentRoutes);
+app.use('/api/users', userRoutes);
 
 export default app;

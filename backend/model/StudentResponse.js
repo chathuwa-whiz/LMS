@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { Response, Question } from "./Assesment.js";
+import { Answer, Question } from "./Assesment.js";
 
-const AssessmentAnswerSchema = new mongoose.Schema({
+const StudentAnswerSchema = new mongoose.Schema({
     studentId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
@@ -27,7 +27,7 @@ const AssessmentAnswerSchema = new mongoose.Schema({
         required: false,
         default: async function() {
             // Retrieve the question and response objects
-            const response = await Response.find({ questionId: this.questionId });
+            const response = await Answer.find({ questionId: this.questionId });
             const question = await Question.findById(this.questionId);
 
             if(!response) return 0; // no response exists for the question
@@ -78,6 +78,6 @@ const AssessmentAnswerSchema = new mongoose.Schema({
     },
 }, {timestamps: true});
 
-const AssessmentAnswer = mongoose.model('AssessmentAnswer', AssessmentAnswerSchema);
+const StudentAnswer = mongoose.model('StudentAnswer', StudentAnswerSchema);
 
-export default AssessmentAnswer;
+export default StudentAnswer;

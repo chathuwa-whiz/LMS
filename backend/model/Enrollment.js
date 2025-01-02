@@ -18,9 +18,11 @@ const EnrollmentSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["enrolled", "completed"],
-        default: "enrolled",
+        enum: ["enrolled", "unenrolled"],
+        default: "unenrolled",
     },
 }, {timestamps: true});
 
-export const Enrollment = mongoose.model('Enrollment', EnrollmentSchema);
+const Enrollment = mongoose.model('Enrollment', EnrollmentSchema);
+
+export default Enrollment;
