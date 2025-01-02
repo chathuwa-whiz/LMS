@@ -17,7 +17,7 @@ export const createQuestion = async (req, res) => {
 
         await ass_question.save();
 
-        res.status(201).json(question);
+        res.status(201).json(ass_question);
 
     } catch (error) {
 

@@ -1,6 +1,6 @@
 import Course from '../model/Course.js';
 import Lesson from '../model/Lesson.js';
-import Module from '../model/Module.js';
+import Module, { Counter } from '../model/Module.js';
 
 // CREATE COURSE
 
@@ -104,6 +104,9 @@ export const deleteCourse = async (req, res) => {
 
             // delete all modules related to the course
             await Module.deleteMany({ courseId: id });
+
+            // delete the course counter
+            await Counter.deleteOne({ category: course.category });
 
             // delete the course
             await course.deleteOne();

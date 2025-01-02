@@ -101,7 +101,7 @@ export const deleteLesson = async (req, res) => {
             return res.status(404).json({ message: "Lesson not found" });
         }
 
-        await lesson.delete();
+        await lesson.deleteOne();
 
         res.status(200).json({ message: "Lesson deleted successfully" });
 

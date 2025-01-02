@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const AssesmentSchema = new mongoose.Schema({
     courseId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'Course',
         required: true,
     },
@@ -25,11 +25,15 @@ const AssesmentSchema = new mongoose.Schema({
     lecture: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true,
+        required: false,
     },
     deadline: {
         type: Date,
-        required: true,
+        required: false,
+        default: function() {
+            // Default deadline is 7 days from now
+            return new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000);
+        }
     },
 }, {timestamps: true});
 
@@ -64,19 +68,23 @@ const ResponseSchema = new mongoose.Schema({
         ref: 'Question',
         required: true,
     },
-    answer: {
-        type: mongoose.Schema.Types.Mixed,
-        required: true,
-    },
-    answerType: {
-        type: String,
-        enum: ['text', 'image', 'number'],
-        required: true,
-    },
-    isCorrect: {
-        type: Boolean,
-        required: true,
-    },
+    answers: [
+        {
+            answer: {
+                type: mongoose.Schema.Types.Mixed,
+                required: true,
+            },
+            answerType: {
+                type: String,
+                enum: ['text', 'image', 'number'],
+                required: true,
+            },
+            isCorrect: {
+                type: Boolean,
+                required: true,
+            },
+        }
+    ],
 }, {timestamps: true});
 
 export const Response = mongoose.model('Response', ResponseSchema);

@@ -6,13 +6,11 @@ export const createResponse = async (req, res) => {
 
     try {
         
-        const { questionId, answer, answerType, isCorrect } = req.body;
+        const { questionId, answers } = req.body;
 
         const response = new Response({
             questionId,
-            answer,
-            answerType,
-            isCorrect,
+            answers
         });
 
         await response.save();
@@ -77,7 +75,7 @@ export const updateResponse = async (req, res) => {
     try {
         
         const { id } = req.params;
-        const { questionId, answer, answerType, isCorrect } = req.body;
+        const { questionId, answers } = req.body;
 
         const response = await Response.findById(id);
 
@@ -86,9 +84,7 @@ export const updateResponse = async (req, res) => {
         }
 
         response.questionId = questionId;
-        response.answer = answer;
-        response.answerType = answerType;
-        response.isCorrect = isCorrect;
+        response.answers = answers;
 
         await response.save();
 

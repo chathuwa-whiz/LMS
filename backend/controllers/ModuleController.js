@@ -1,5 +1,5 @@
 import Lesson from "../model/Lesson.js";
-import Module from "../model/Module.js";
+import Module, { Counter } from "../model/Module.js";
 
 // CREATE MODULE
 
@@ -99,6 +99,13 @@ export const deleteModule = async (req, res) => {
         await Lesson.deleteMany({ moduleId: id });
         
         await module.deleteOne();
+
+        // reduce the counter index by 1
+        await Counter.findOneAndUpdate(
+            { category: module.courseId },
+            { $inc: { index: -1 } },
+            { new: true, upsert: true }
+        );
 
         res.status(200).json({ message: "Module deleted with Lessons successfully" });
 

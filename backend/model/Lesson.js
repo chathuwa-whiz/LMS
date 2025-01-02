@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const lessonSchema = new mongoose.Schema({
     moduleId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'Module',
         required: true,
     },

@@ -7,7 +7,7 @@ const counterSchema = new mongoose.Schema({
     index: { type: Number, required: true, default: 0 },
 });
 
-const Counter = mongoose.model('Counter', counterSchema);
+export const Counter = mongoose.model('Counter', counterSchema);
 
 // Helper function to generate a custom _id
 const generateModuleId = async (courseId) => {
@@ -52,6 +52,7 @@ const moduleSchema = new mongoose.Schema({
     lic: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        required: false, // Not required for now
     },
     lectures: {
         type: [mongoose.Schema.Types.ObjectId],
