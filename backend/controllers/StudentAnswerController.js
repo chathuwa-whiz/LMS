@@ -1,4 +1,4 @@
-import StudentAnswer from "../model/StudentResponse.js";
+import StudentAnswer from "../model/StudentAnswer.js";
 
 // CREATE STUDENT ANSWER
 
