@@ -11,7 +11,7 @@ const ContentSchema = new mongoose.Schema({
     },
     contentType: {
         type: String,
-        enum: ['Video', 'Text', 'Image', 'File'],
+        enum: ['video', 'text', 'image', 'file'],
         required: true,
     },
     url: {
@@ -23,16 +23,16 @@ const ContentSchema = new mongoose.Schema({
     text: {
         type: String,
         required: function () {
-            return this.contentType === 'Text';
+            return this.contentType === 'text';
         },
     },
     courseId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'Course',
         required: true,
     },
     moduleId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'Module',
         required: false,
     },
