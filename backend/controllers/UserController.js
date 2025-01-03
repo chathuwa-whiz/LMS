@@ -17,7 +17,7 @@ export const createUser = async (req, res) => {
             dateOfBirth
         });
 
-        res.status(201).json({ user });
+        res.status(201).json(user);
         
     } catch (error) {
 
@@ -33,7 +33,7 @@ export const getAllUsers = async (req, res) => {
 
         const users = await User.find();
 
-        res.status(200).json({ users });
+        res.status(200).json(users);
         
     } catch (error) {
 
@@ -51,7 +51,7 @@ export const getUserById = async (req, res) => {
 
         const user = await User.findById(id);
 
-        res.status(200).json({ user });
+        res.status(200).json(user);
         
     } catch (error) {
 
@@ -85,7 +85,7 @@ export const updateUser = async (req, res) => {
 
         await user.save();
 
-        res.status(200).json({ user });
+        res.status(200).json(user);
         
     } catch (error) {
 
