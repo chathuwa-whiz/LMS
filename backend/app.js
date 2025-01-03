@@ -11,6 +11,7 @@ import studentAnswerRoutes from './routes/StudentAnswerRoutes.js';
 import enrollmentRoutes from './routes/EnrollmentRoutes.js';
 import userRoutes from './routes/UserRoutes.js';
 import paymentRoutes from './routes/PaymentRoutes.js';
+import progressTrackingRoutes from './routes/ProgressTrackingRoutes.js';
 
 dotenv.config();
 
@@ -31,5 +32,6 @@ app.use('/api/student-answers', studentAnswerRoutes);
 app.use('/api/enrollments', enrollmentRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/payments', paymentRoutes);
+app.use('/api/progress', progressTrackingRoutes);
 
 export default app;
