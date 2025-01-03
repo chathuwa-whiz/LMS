@@ -10,6 +10,7 @@ import answerRoutes from './routes/AssesmentAnswerRoutes.js';
 import studentAnswerRoutes from './routes/StudentAnswerRoutes.js';
 import enrollmentRoutes from './routes/EnrollmentRoutes.js';
 import userRoutes from './routes/UserRoutes.js';
+import paymentRoutes from './routes/PaymentRoutes.js';
 
 dotenv.config();
 
@@ -29,5 +30,6 @@ app.use('/api/answers', answerRoutes);
 app.use('/api/student-answers', studentAnswerRoutes);
 app.use('/api/enrollments', enrollmentRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/payments', paymentRoutes);
 
 export default app;

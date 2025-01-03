@@ -13,12 +13,12 @@ const paymentSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Pending', 'Completed'],
+        enum: ['pending', 'completed'],
         required: true,
     },
     paymentMethod: {
         type: String,
-        enum: ['Card', 'Cash', 'Bank Transfer'],
+        enum: ['card', 'cash', 'bank-transfer'],
         required: true,
     },
     paymentRef: {
@@ -27,8 +27,11 @@ const paymentSchema = new mongoose.Schema({
     },
     paymentDate: {
         type: Date,
-        required: true,
+        required: false, // not required for now
+        default: Date.now,
     },
 }, {timestamps: true});
 
-export const Payment = mongoose.model('Payment', paymentSchema);
+const Payment = mongoose.model('Payment', paymentSchema);
+
+export default Payment;
