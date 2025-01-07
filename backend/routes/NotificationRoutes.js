@@ -4,7 +4,7 @@ import express from 'express';
 const notificationRoutes = express.Router();
 
 notificationRoutes.post('/', sendNotification);
-notificationRoutes.get('/', getNotifications);
+notificationRoutes.get('/:userId', getNotifications);
 notificationRoutes.put('/:id', markNotificationAsRead);
 notificationRoutes.delete('/:id', deleteNotification);
 

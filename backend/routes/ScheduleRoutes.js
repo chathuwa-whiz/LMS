@@ -4,8 +4,8 @@ import express from 'express';
 const scheduleRoutes = express.Router();
 
 scheduleRoutes.post('/', createSchedule);
-scheduleRoutes.get('/:userId', getSchedules);
+scheduleRoutes.get('/', getSchedules);
 scheduleRoutes.put('/:scheduleId', updateSchedule);
-scheduleRoutes.delete('/:scheduleId', deleteSchedule);
+scheduleRoutes.delete('/:id', deleteSchedule);
 
 export default scheduleRoutes;

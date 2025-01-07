@@ -27,7 +27,7 @@ export const createReminder = async (req, res) => {
 export const getReminders = async (req, res) => {
     try {
         
-        const userId = req.params;
+        const { userId } = req.params;
         
         const reminders = await Reminder.find({ userId });
         
@@ -44,10 +44,10 @@ export const getReminders = async (req, res) => {
 export const markReminderAsSent = async (req, res) => {
     try {
 
-        const reminderId = req.params;
+        const { reminderId } = req.params;
 
         const updatedReminder = await Reminder.findOneAndUpdate(
-            { _id: reminderId },
+            { reminderId },
             { isSent: true },
             { new: true }
         );
@@ -69,13 +69,15 @@ export const markReminderAsSent = async (req, res) => {
 export const deleteReminder = async (req, res) => {
     try {
 
-        const reminderId = req.params;
+        const { id } = req.params;
 
-        const deletedReminder = await Reminder.findByIdAndDelete(reminderId);
+        const reminder = await Reminder.findById(id);
 
-        if (!deletedReminder) {
+        if (!reminder) {
             return res.status(404).json({ error: "Reminder not found." });
         }
+
+        await reminder.deleteOne();
 
         res.status(200).json({ message: "Reminder deleted successfully." });
     

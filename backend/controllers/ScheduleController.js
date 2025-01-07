@@ -32,7 +32,7 @@ export const createSchedule = async (req, res) => {
 // GET SCHEDULES BY USER ID
 export const getSchedules = async (req, res) => {
     try {
-        const userId = req.params;
+        const { userId } = req.body;
 
         const schedules = await Schedule.find({ userId });
 
@@ -48,7 +48,7 @@ export const getSchedules = async (req, res) => {
 // UPDATE SCHEDULE
 export const updateSchedule = async (req, res) => {
     try {
-        const scheduleId = req.params;
+        const { scheduleId } = req.params;
         
         const newSchedule = req.body;
 
@@ -74,13 +74,15 @@ export const updateSchedule = async (req, res) => {
 // DELETE SCHEDULE
 export const deleteSchedule = async (req, res) => {
     try {
-        const scheduleId = req.params;
+        const { id } = req.params;
 
-        const deletedSchedule = await Schedule.findByIdAndDelete(scheduleId);
+        const schedule = await Schedule.findById(id);
 
-        if (!deletedSchedule) {
+        if (!schedule) {
             return res.status(404).json({ error: "Schedule not found." });
         }
+
+        await schedule.deleteOne();
 
         res.status(200).json({ message: "Schedule deleted successfully." });
 

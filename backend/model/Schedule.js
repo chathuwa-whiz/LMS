@@ -16,11 +16,11 @@ const scheduleSchema = new mongoose.Schema({
     },
     startTime: { 
         type: Date, 
-        required: false, 
+        required: false, //
     },
     endTime: { 
         type: Date, 
-        required: false, 
+        required: false, //
         validate: {
             validator: function (value) {
                 return this.startTime < value;

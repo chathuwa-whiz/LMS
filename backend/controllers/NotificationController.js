@@ -27,7 +27,7 @@ export const sendNotification = async (req, res) => {
 export const getNotifications = async (req, res) => {
     try {
 
-        const userId = req.params;
+        const { userId } = req.params;
         
         const notifications = await Notification.find({ userId });
         
@@ -44,10 +44,10 @@ export const getNotifications = async (req, res) => {
 export const markNotificationAsRead = async (req, res) => {
     try {
 
-        const notificationId = req.params;
+        const { notificationId } = req.params;
 
         const updatedNotification = await Notification.findOneAndUpdate(
-            { _id: notificationId },
+            { notificationId },
             { isRead: true },
             { new: true }
         );
@@ -68,13 +68,15 @@ export const markNotificationAsRead = async (req, res) => {
 // DELETE NOTIFICATION
 export const deleteNotification = async (req, res) => {
     try {
-        const notificationId = req.params;
+        const { id } = req.params;
 
-        const deletedNotification = await Notification.findByIdAndDelete(notificationId);
+        const notification = await Notification.findById(id);
 
-        if (!deletedNotification) {
+        if (!notification) {
             return res.status(404).json({ error: "Notification not found." });
         }
+
+        await notification.deleteOne();
 
         res.status(200).json({ message: "Notification deleted successfully." });
     

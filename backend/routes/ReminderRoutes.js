@@ -4,7 +4,7 @@ import express from 'express';
 const reminderRoutes = express.Router();
 
 reminderRoutes.post('/', createReminder);
-reminderRoutes.get('/', getReminders);
+reminderRoutes.get('/:userId', getReminders);
 reminderRoutes.put('/:id', markReminderAsSent);
 reminderRoutes.delete('/:id', deleteReminder);
 
