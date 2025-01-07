@@ -16,11 +16,11 @@ const scheduleSchema = new mongoose.Schema({
     },
     startTime: { 
         type: Date, 
-        required: true, 
+        required: false, 
     },
     endTime: { 
         type: Date, 
-        required: true, 
+        required: false, 
         validate: {
             validator: function (value) {
                 return this.startTime < value;
@@ -30,4 +30,6 @@ const scheduleSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-export const Schedule = mongoose.model("Schedule", scheduleSchema);
+const Schedule = mongoose.model("Schedule", scheduleSchema);
+
+export default Schedule;

@@ -13,6 +13,10 @@ import userRoutes from './routes/UserRoutes.js';
 import paymentRoutes from './routes/PaymentRoutes.js';
 import progressTrackingRoutes from './routes/ProgressTrackingRoutes.js';
 import contentRoutes from './routes/ContentRoutes.js';
+import scheduleRoutes from './routes/ScheduleRoutes.js';
+import taskRoutes from './routes/TaskRoutes.js';
+import reminderRoutes from './routes/ReminderRoutes.js';
+import notificationRoutes from './routes/NotificationRoutes.js';
 
 dotenv.config();
 
@@ -35,5 +39,9 @@ app.use('/api/users', userRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/progress', progressTrackingRoutes);
 app.use('/api/content', contentRoutes);
+app.use('/api/schedules', scheduleRoutes);
+app.use('/api/tasks', taskRoutes);
+app.use('/api/reminders', reminderRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 export default app;
