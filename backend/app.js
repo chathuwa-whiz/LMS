@@ -17,6 +17,8 @@ import scheduleRoutes from './routes/ScheduleRoutes.js';
 import taskRoutes from './routes/TaskRoutes.js';
 import reminderRoutes from './routes/ReminderRoutes.js';
 import notificationRoutes from './routes/NotificationRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import authMiddleware from './middleware/authMiddleware.js';
 
 dotenv.config();
 
@@ -27,21 +29,22 @@ const app = express();
 app.use(express.json());
 
 // API Routes
-app.use('/api/courses', courseRoutes);
-app.use('/api/modules', moduleRoutes);
-app.use('/api/lessons', lessonRoutes);
-app.use('/api/assesments', assesmentRoutes);
-app.use('/api/questions', questionRoutes);
-app.use('/api/answers', answerRoutes);
-app.use('/api/student-answers', studentAnswerRoutes);
-app.use('/api/enrollments', enrollmentRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/payments', paymentRoutes);
-app.use('/api/progress', progressTrackingRoutes);
-app.use('/api/content', contentRoutes);
-app.use('/api/schedules', scheduleRoutes);
-app.use('/api/tasks', taskRoutes);
-app.use('/api/reminders', reminderRoutes);
-app.use('/api/notifications', notificationRoutes);
+app.use('/api/courses', authMiddleware, courseRoutes);
+app.use('/api/modules', authMiddleware, moduleRoutes);
+app.use('/api/lessons', authMiddleware, lessonRoutes);
+app.use('/api/assesments', authMiddleware, assesmentRoutes);
+app.use('/api/questions', authMiddleware, questionRoutes);
+app.use('/api/answers', authMiddleware, answerRoutes);
+app.use('/api/student-answers', authMiddleware, studentAnswerRoutes);
+app.use('/api/enrollments', authMiddleware, enrollmentRoutes);
+app.use('/api/users', authMiddleware, userRoutes);
+app.use('/api/payments', authMiddleware, paymentRoutes);
+app.use('/api/progress', authMiddleware, progressTrackingRoutes);
+app.use('/api/content', authMiddleware, contentRoutes);
+app.use('/api/schedules', authMiddleware, scheduleRoutes);
+app.use('/api/tasks', authMiddleware, taskRoutes);
+app.use('/api/reminders', authMiddleware, reminderRoutes);
+app.use('/api/notifications', authMiddleware, notificationRoutes);
+app.use('/api/auth', authRoutes);
 
 export default app;
