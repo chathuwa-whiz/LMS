@@ -16,7 +16,7 @@ export const addProgressTracking = async (req, res) => {
 
         await progressTracking.save();
 
-        res.status(201).json({ progressTracking });
+        res.status(201).json(progressTracking);
 
     } catch (error) {
 
@@ -34,7 +34,7 @@ export const getProgressTrackingByUser = async (req, res) => {
 
         const progressTracking = await ProgressTracking.find({ userId });
 
-        res.status(200).json({ progressTracking });
+        res.status(200).json(progressTracking);
         
     } catch (error) {
 
@@ -53,7 +53,7 @@ export const getProgressTrackingByCourse = async (req, res) => {
 
         const progressTracking = await ProgressTracking.find({ userId, courseId });
 
-        res.status(200).json({ progressTracking });
+        res.status(200).json(progressTracking);
         
     } catch (error) {
 
@@ -83,7 +83,7 @@ export const updateProgressTracking = async (req, res) => {
 
         await progressTracking.save();
 
-        res.status(200).json({ progressTracking });
+        res.status(200).json(progressTracking);
 
     } catch (error) {
         

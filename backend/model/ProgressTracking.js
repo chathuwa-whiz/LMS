@@ -7,7 +7,7 @@ const ProgressTrackingSchema = new mongoose.Schema({
         required: true,
     },
     courseId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'Course',
         required: true,
     },
