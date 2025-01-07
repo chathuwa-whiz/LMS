@@ -17,7 +17,7 @@ const ContentSchema = new mongoose.Schema({
     url: {
         type: String,
         required: function () {
-            return this.contentType === 'Video' || this.contentType === 'File' || this.contentType === 'Image';
+            return this.contentType === 'video' || this.contentType === 'file' || this.contentType === 'image';
         },
     },
     text: {
