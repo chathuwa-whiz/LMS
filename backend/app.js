@@ -1,4 +1,5 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
 import courseRoutes from './routes/CourseRoutes.js';
@@ -19,6 +20,7 @@ import reminderRoutes from './routes/ReminderRoutes.js';
 import notificationRoutes from './routes/NotificationRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import authMiddleware from './middleware/authMiddleware.js';
+import {cloudinaryConnection} from './config/cloudinary.js';
 
 dotenv.config();
 
@@ -26,7 +28,12 @@ dotenv.config();
 const app = express();
 
 // Middlewares
-app.use(express.json());
+app.use(express.json()); // for json
+app.use(express.urlencoded({ extended: true })); // for form data
+// app.use(bodyParser.json());
+
+// Cloudinary config
+cloudinaryConnection();
 
 // API Routes
 app.use('/api/courses', authMiddleware, courseRoutes);
