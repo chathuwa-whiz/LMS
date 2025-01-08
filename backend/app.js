@@ -1,4 +1,5 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
 import courseRoutes from './routes/CourseRoutes.js';
@@ -26,7 +27,9 @@ dotenv.config();
 const app = express();
 
 // Middlewares
-app.use(express.json());
+app.use(express.json()); // for json
+app.use(express.urlencoded({ extended: true })); // for form data
+// app.use(bodyParser.json());
 
 // API Routes
 app.use('/api/courses', authMiddleware, courseRoutes);
