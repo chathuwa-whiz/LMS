@@ -77,7 +77,7 @@ export const updateAnswer = async (req, res) => {
         const { id } = req.params;
         const { questionId, answers } = req.body;
 
-        const answer = await Response.findById(id);
+        const answer = await Answer.findById(id);
 
         if(!answer) {
             return res.status(404).json({ message: "Answer not found" });

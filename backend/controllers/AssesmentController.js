@@ -116,9 +116,9 @@ export const deleteAssesment = async (req, res) => {
             // get all questions related to assesment
             const questions = await Question.find( { assesmentId: id } );
             
-            // delete all responses related to questions
+            // delete all answers related to questions
             for(const question of questions) {
-                await Response.deleteMany( { questionId: question._id } );
+                await Answer.deleteMany( { questionId: question._id } );
             }
 
             // delete all questions related to assesment

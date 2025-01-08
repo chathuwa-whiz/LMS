@@ -16,6 +16,16 @@ export const cloudinaryConnection = async () => {
     } catch (error) {
         console.error("Cloudinary connection failed:", error.message);        
     }
+
+    // cloudinary.uploader.upload("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png", {
+    //     folder: "test"
+    // })
+    // .then(result => {
+    //     console.log("Uploaded Image: ", result);
+    // })
+    // .catch(error => {
+    //     console.error("Failed to upload image to Cloudinary:", error.message);
+    // });
 };
 
 export default cloudinary;

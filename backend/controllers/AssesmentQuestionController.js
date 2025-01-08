@@ -1,6 +1,6 @@
-import { Question } from "../model/Assesment.js";
+import { Question, Answer } from "../model/Assesment.js";
 import fs from 'fs';
-import cloudinary from 'cloudinary';
+import cloudinary from '../config/cloudinary.js';
 
 // CREATE QUESTION
 
@@ -18,7 +18,7 @@ export const createQuestion = async (req, res) => {
                 req.file.path,
                 {
                     public_id: req.file.filename,
-                    folder: "lms-questions",
+                    folder: 'lms-questions',
                 }
             );
 
@@ -32,7 +32,7 @@ export const createQuestion = async (req, res) => {
                 assesmentId,
                 question,
                 answerType,
-                image,
+                image : image ? { url: image.secure_url, public_id: image.public_id } : '',
             });
     
             await ass_question.save();
@@ -181,7 +181,7 @@ export const updateQuestion = async (req, res) => {
     
 };
 
-// DELETE QUESTION WITH RELATED RESPONSES
+// DELETE QUESTION WITH RELATED ANSWERS
 
 export const deleteQuestion = async (req, res) => {
 
@@ -195,7 +195,7 @@ export const deleteQuestion = async (req, res) => {
             return res.status(404).json({ message: "Question not found" });
         }
 
-        await Response.deleteMany({ questionId : id });
+        await Answer.deleteMany({ questionId : id });
 
         await question.deleteOne();
 
@@ -204,11 +204,11 @@ export const deleteQuestion = async (req, res) => {
             try {
                 await cloudinary.uploader.destroy(question.image.public_id);
             } catch (err) {
-                console.error("Error deleting image from Cloudinary:", err.message);
+                console.log("Error deleting image from Cloudinary:", err.message);
             }
         }
 
-        res.status(200).json({ message: "Question deleted with responses successfully" });
+        res.status(200).json({ message: "Question deleted with answers successfully" });
         
     } catch (error) {
 
