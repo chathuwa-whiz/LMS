@@ -20,6 +20,7 @@ import notificationRoutes from './routes/NotificationRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import authMiddleware from './middleware/authMiddleware.js';
 import {cloudinaryConnection} from './config/cloudinary.js';
+import checkoutRoutes from './routes/CheckoutRoutes.js';
 
 dotenv.config();
 
@@ -50,6 +51,7 @@ app.use('/api/schedules', authMiddleware, scheduleRoutes);
 app.use('/api/tasks', authMiddleware, taskRoutes);
 app.use('/api/reminders', authMiddleware, reminderRoutes);
 app.use('/api/notifications', authMiddleware, notificationRoutes);
+app.use('/api/checkout', authMiddleware,checkoutRoutes);
 app.use('/api/auth', authRoutes);
 
 export default app;
