@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
 import courseRoutes from './routes/CourseRoutes.js';
