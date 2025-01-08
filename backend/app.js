@@ -1,6 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
-import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
 import courseRoutes from './routes/CourseRoutes.js';
@@ -31,7 +29,6 @@ const app = express();
 // Middlewares
 app.use(express.json()); // for json
 app.use(express.urlencoded({ extended: true })); // for form data
-// app.use(bodyParser.json());
 
 // Cloudinary config
 cloudinaryConnection();
