@@ -17,8 +17,8 @@ import scheduleRoutes from './routes/ScheduleRoutes.js';
 import taskRoutes from './routes/TaskRoutes.js';
 import reminderRoutes from './routes/ReminderRoutes.js';
 import notificationRoutes from './routes/NotificationRoutes.js';
-import authRoutes from './routes/authRoutes.js';
-import authMiddleware from './middleware/authMiddleware.js';
+import authRoutes from './routes/AuthRoutes.js';
+import authMiddleware from './middleware/AuthMiddleware.js';
 import {cloudinaryConnection} from './config/cloudinary.js';
 import checkoutRoutes from './routes/CheckoutRoutes.js';
 

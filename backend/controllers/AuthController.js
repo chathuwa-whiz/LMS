@@ -19,6 +19,11 @@ export const register = async (req, res) => {
             dateOfBirth 
         });
 
+        const existingUser = await User.findOne({ email });
+        if(existingUser) {
+            return res.status(400).json({ message: 'User already exists' });
+        }
+
         await user.save();
 
         const token = user.generateAuthToken();
@@ -61,7 +66,7 @@ export const login = async (req, res) => {
             return res.status(400).json({ message: 'Token not generated' });
         }
         
-        res.status(200).json({ token, user });
+        res.status(201).json({ token, user });
     
     } catch (error) {
     
