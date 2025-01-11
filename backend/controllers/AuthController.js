@@ -19,8 +19,8 @@ export const register = async (req, res) => {
             dateOfBirth 
         });
 
-        const existingUser = await User.findOne({ email });
-        if(existingUser) {
+        const existingUser = await User.find({ email });
+        if(existingUser.length > 0) {
             return res.status(400).json({ message: 'User already exists' });
         }
 

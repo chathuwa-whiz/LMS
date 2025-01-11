@@ -1,5 +1,6 @@
 import request from 'supertest';
 import User from '../model/User.js';
+import jwt from 'jsonwebtoken';
 import connectDB from '../config/db.js';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -10,9 +11,23 @@ dotenv.config();
 // set timeout to allow for database connection
 jest.setTimeout(10000);
 
+let token;
+
 beforeAll(async () => {
     process.env.NODE_ENV = 'test';  // set the environment to test
     await connectDB();  // connect to the database
+
+    const user = new User({
+        firstName: 'Test',
+        lastName: 'User',
+        email: 'test@gmail.com',
+        password: '11111',
+        role: 'admin',
+        dateOfBirth: '1990-01-01',
+    });
+    await user.save();
+
+    token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
 });
 
 beforeEach(async () => {
@@ -20,147 +35,53 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
-    try {
-        await mongoose.connection.dropDatabase();  // clear the database after all tests
-        await mongoose.connection.close();  // close the database connection
-        console.log("Database connection closed");
-    } catch (error) {
-        console.error("Error during database cleanup", error.message);
-    }
+    await mongoose.connection.db.dropDatabase();
+    // await new Promise(resolve => setTimeout(resolve, 5000));  // wait for 5 seconds
+    await mongoose.connection.close();
 });
 
-describe('User Auth Test', () => {
+describe('User CRUD Test', () => {
 
-    describe('POST /api/auth/register', () => {
+    describe('POST /api/auth/getAllUsers', () => {
 
-        it('should register a new user', async () => {
-            const response = await request(app).post('/api/auth/register').send({
-                firstName: 'John', 
-                lastName: 'Doe', 
-                email: 'john@gmail.com', 
-                password: '11111', 
-                role: 'admin', 
-                dateOfBirth: '1990-01-01' 
-            });
-            expect(response.statusCode).toBe(201);
-            expect(response.body).toHaveProperty('token');
+        it('should return all users', async () => {
+            const response = await request(app)
+                .get('/api/users/')
+                .set('Authorization', `Bearer ${token}`);
+            expect(response.statusCode).toBe(200);
         });
 
-        it('should not register a user with missing fields', async () => {
-            const response = await request(app).post('/api/auth/register').send({
-                firstName: 'John', 
-                lastName: 'Doe', 
-            });
-            expect(response.statusCode).toBe(500);
-            expect(response.body).toHaveProperty('error');
+        it('should return authentication error', async () => {
+            const response = await request(app).get('/api/users/');
+            expect(response.statusCode).toBe(401);
         });
 
-        it('should not register a user with invalid email', async () => {
-            const response = await request(app).post('/api/auth/register').send({
-                firstName: 'John', 
-                lastName: 'Doe', 
-                email: 'john', 
-                password: '11111', 
-                role: 'admin', 
-                dateOfBirth: '1990-01-01' 
-            });
-            expect(response.statusCode).toBe(500);
-            expect(response.body).toHaveProperty('error');
-        });
+    });
 
-        it('should not register a user with invalid date of birth', async () => {
-            const response = await request(app).post('/api/auth/register').send({
-                firstName: 'John', 
-                lastName: 'Doe', 
-                email: 'john@gmail.com',
-                password: '11111',
-                role: 'admin',
-                dateOfBirth: '1990/01/01',
-            });
-            expect(response.statusCode).toBe(500);
-            expect(response.body).toHaveProperty('error');
-        });
+    describe('POST /api/auth/getUserById', () => {
 
-        it('should not register a user with a duplicate email', async () => {
-            await User.create({
-                firstName: 'John', 
-                lastName: 'Doe', 
-                email: 'test@gmail.com',
-                password: '11111',
-                role: 'admin',
-                dateOfBirth: '1990-01-01',
-            });
-
-            const response = await request(app).post('/api/auth/register').send({
-                firstName: 'Jane', 
-                lastName: 'Doe', 
-                email: 'test@gmail.com',
-                password: '11111',
-                role: 'admin',
-                dateOfBirth: '1990-01-01',
-            });
-
-            expect(response.statusCode).toBe(400);
-        });
-            
-    }),
-
-    describe('POST /api/auth/login', () => {
-
-        it('should login a user', async () => {
-            await User.create({
-                firstName: 'John', 
-                lastName: 'Doe', 
+        it('should return a user by id', async () => {
+            const new_user = new User({
+                firstName: 'John',
+                lastName: 'Doe',
                 email: 'john@gmail.com',
                 password: '11111',
                 role: 'admin',
                 dateOfBirth: '1990-01-01',
             });
+            await new_user.save();
 
-            const response = await request(app).post('/api/auth/login').send({
-                email: 'john@gmail.com',
-                password: '11111',
-            });
-
-            expect(response.statusCode).toBe(201);
-            expect(response.body).toHaveProperty('token');
+            const user = await User.findOne({ email: 'john@gmail.com' });
+            const response = await request(app)
+                .get(`/api/users/${user._id}`)
+                .set('Authorization', `Bearer ${token}`);
+            expect(response.statusCode).toBe(200);
         });
+       
+    });
 
-        it('should not login a user with invalid email', async () => {
-            await User.create({
-                firstName: 'John', 
-                lastName: 'Doe', 
-                email: 'john@gmail.com',
-                password: '11111',
-                role: 'admin',
-                dateOfBirth: '1990-01-01',
-            });
+    // describe('POST /api/auth/updateUser', () => {});
 
-            const response = await request(app).post('/api/auth/login').send({
-                email: 'wrongmail@gmail.com',
-                password: '11111',
-            });
+    // describe('POST /api/auth/deleteUser', () => {});
 
-            expect(response.statusCode).toBe(400);
-        });
-
-        it('should not login a user with invalid password', async () => {
-            await User.create({
-                firstName: 'John', 
-                lastName: 'Doe', 
-                email: 'john@gmail.com',
-                password: '11111',
-                role: 'admin',
-                dateOfBirth: '1990-01-01',
-            });
-
-            const response = await request(app).post('/api/auth/login').send({
-                email: 'john@gmail.com',
-                password: '00000',
-            });
-
-            expect(response.statusCode).toBe(400);
-        });
-
-    })
 })
