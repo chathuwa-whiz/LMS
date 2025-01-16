@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 import courseRoutes from './routes/CourseRoutes.js';
 import moduleRoutes from './routes/ModuleRoutes.js';
@@ -28,6 +29,7 @@ dotenv.config();
 const app = express();
 
 // Middlewares
+app.use(cors());
 app.use(express.json()); // for json
 app.use(express.urlencoded({ extended: true })); // for form data
 

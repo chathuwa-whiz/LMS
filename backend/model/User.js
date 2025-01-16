@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema({
     },
     profilePicture: { 
         type: String, 
+        default: 'https://res.cloudinary.com/dk5b3f3z',
     },
     dateOfBirth: { 
         type: String, 

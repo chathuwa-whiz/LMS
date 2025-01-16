@@ -2,9 +2,44 @@ import React, { useState } from "react";
 import LazyLoad from "react-lazy-load";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import content from "../content/register";
+import { useRegisterMutation } from "../redux/services/userSlice";
+import toast from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+    const [ register ] = useRegisterMutation();
+    const navigate = useNavigate();
+
     const [showPassword, setShowPassword] = useState(false);
+    const [fname, setFname] = useState("");
+    const [lname, setLname] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [birthday, setBirthday] = useState("");
+    const [role, setRole] = useState("student");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const user = {
+                firstName: fname,
+                lastName: lname,
+                email,
+                password,
+                dateOfBirth: birthday,
+                role,
+            };
+            
+            const result = await register(user).unwrap();
+            console.log('Registration result: ',result);
+            toast.success('Account created successfully!');
+            navigate('/login');
+        } catch (error) {
+            toast.error(error.message);
+            console.log('Error in registration: ',error);
+        }
+    };
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -48,19 +83,22 @@ export default function Register() {
                 </div>
 
                 {/* Form */}
-                <form className="flex flex-col w-full max-w-md space-y-6">
+                <form onSubmit={handleSubmit} className="flex flex-col w-full max-w-md space-y-6">
                     <input
                         type="text"
+                        onChange={(e) => setFname(e.target.value)}
                         placeholder="First Name"
                         className="border-b-2 border-primary3 bg-transparent w-full py-2 focus:outline-none"
                     />
                     <input
                         type="text"
+                        onChange={(e) => setLname(e.target.value)}
                         placeholder="Last Name"
                         className="border-b-2 border-primary3 bg-transparent w-full py-2 focus:outline-none"
                     />
                     <input
                         type="email"
+                        onChange={(e) => setEmail(e.target.value)}
                         placeholder="Email"
                         className="border-b-2 border-primary3 bg-transparent w-full py-2 focus:outline-none"
                     />
@@ -68,6 +106,7 @@ export default function Register() {
                         {/* Password Input */}
                         <input
                             type={showPassword ? "text" : "password"}
+                            onChange={(e) => setPassword(e.target.value)}
                             placeholder="Password"
                             className="border-b-2 border-primary3 bg-transparent w-full py-2 focus:outline-none"
                         />
@@ -82,9 +121,21 @@ export default function Register() {
                     </div>
                     <input
                         type="date"
+                        onChange={(e) => setBirthday(e.target.value)}
                         placeholder="Birthday"
                         className="border-b-2 border-primary3 bg-transparent w-full py-2 focus:outline-none"
                     />
+                    <div className="flex items-center text-gray-700 gap-4">
+                        <span>I am a </span>
+                        <select
+                            className="bg-white px-4 py-2 rounded-lg text-gray-700 focus:outline-none"
+                            defaultValue="student"
+                            onChange={(e) => setRole(e.target.value)}
+                        >
+                            <option value="student">Student</option>
+                            <option value="teacher">Teacher</option>
+                        </select>
+                    </div>
                     <button
                         type="submit"
                         className="bg-primary3 text-primary1 font-semibold py-3 rounded-lg w-full hover:bg-primary2 transition"
