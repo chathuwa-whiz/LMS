@@ -3,15 +3,17 @@
 import React from 'react'
 import LazyLoad from 'react-lazy-load'
 import { FiHome, FiBriefcase, FiCalendar, FiBarChart2, FiSettings } from 'react-icons/fi'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export default function Navbar() {
 
     const location = useLocation();
     const currentPath = location.pathname;
 
+    const navigate = useNavigate();
+
     return (
-        <section>
+        <section className='w-1/6'>
             {/* desktop view */}
             <div className='flex flex-col'>
                 {/* logo */}
@@ -21,30 +23,40 @@ export default function Navbar() {
 
                 {/* navigation links */}
                 <div className='mt-10 flex flex-col gap-y-3'>
-                    <a href='/' className={`flex items-center pl-3 pr-14 py-3 rounded-xl text-gray-700 ${currentPath === '/' ? 'bg-primary2 font-semibold' : 'hover:bg-primary2'}`}>
+                    <div 
+                        onClick={() => navigate('/')}
+                        className={`flex items-center hover:cursor-pointer pl-3 pr-14 py-3 rounded-xl text-gray-700 ${currentPath === '/' ? 'bg-primary2 font-semibold' : 'hover:bg-primary2'}`}>
                         <FiHome size={20} />
                         <span className='ml-3'>Dashboard</span>
-                    </a>
+                    </div>
 
-                    <a href='/courses' className={`flex items-center pl-3 pr-14 py-3 rounded-xl text-gray-700 ${currentPath === '/courses' ? 'bg-primary2 font-semibold' : 'hover:bg-primary2'}`}>
+                    <div
+                        onClick={() => navigate('/courses')} 
+                        className={`flex items-center hover:cursor-pointer pl-3 pr-14 py-3 rounded-xl text-gray-700 ${currentPath === '/courses' ? 'bg-primary2 font-semibold' : 'hover:bg-primary2'}`}>
                         <FiBriefcase size={20} />
                         <span className='ml-3'>Courses</span>
-                    </a>
+                    </div>
 
-                    <a href='/schedule' className={`flex items-center pl-3 pr-14 py-3 rounded-xl text-gray-700 ${currentPath === '/schedule' ? 'bg-primary2 font-semibold' : 'hover:bg-primary2'}`}>
+                    <div
+                        onClick={() => navigate('/schedule')} 
+                        className={`flex items-center hover:cursor-pointer pl-3 pr-14 py-3 rounded-xl text-gray-700 ${currentPath === '/schedule' ? 'bg-primary2 font-semibold' : 'hover:bg-primary2'}`}>
                         <FiCalendar size={20} />
                         <span className='ml-3'>Schedule</span>
-                    </a>
+                    </div>
 
-                    <a href='/grades' className={`flex items-center pl-3 pr-14 py-3 rounded-xl text-gray-700 ${currentPath === '/grades' ? 'bg-primary2 font-semibold' : 'hover:bg-primary2'}`}>
+                    <div
+                        onClick={() => navigate('/grades')} 
+                        className={`flex items-center hover:cursor-pointer pl-3 pr-14 py-3 rounded-xl text-gray-700 ${currentPath === '/grades' ? 'bg-primary2 font-semibold' : 'hover:bg-primary2'}`}>
                         <FiBarChart2 size={20} />
                         <span className='ml-3'>Grades</span>
-                    </a>
+                    </div>
 
-                    <a href='/settings' className={`flex items-center pl-3 pr-14 py-3 rounded-xl text-gray-700 ${currentPath === '/settings' ? 'bg-primary2 font-semibold' : 'hover:bg-primary2'}`}>
+                    <div 
+                        onClick={() => navigate('/settings')}
+                        className={`flex items-center hover:cursor-pointer pl-3 pr-14 py-3 rounded-xl text-gray-700 ${currentPath === '/settings' ? 'bg-primary2 font-semibold' : 'hover:bg-primary2'}`}>
                         <FiSettings size={20} />
                         <span className='ml-3'>Settings</span>
-                    </a>
+                    </div>
                 </div>
             </div>
         </section>

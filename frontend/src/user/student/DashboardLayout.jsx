@@ -1,16 +1,16 @@
 // combine header, sidebar, navbar and dashboard content
-// dashboard contents -> dashboard, courses, schedule, grades, settings
+// outlet contents -> dashboard, courses, schedule, grades, settings
 import React from 'react'
-import Dashboard from './Dashboard'
 import Navbar from './Navbar'
 import Sidebar from './Sidebar'
+import { Outlet } from 'react-router-dom'
 
 export default function DashboardLayout() {
   return (
-    <div className='flex justify-between lg:p-8 bg-primary1 h-screen'>
+    <div className='flex lg:p-8'>
         <Navbar />
+        <Outlet />
         <Sidebar />
-        <Dashboard />
     </div>
   )
 }
