@@ -2,9 +2,37 @@ import React, { useState } from "react";
 import LazyLoad from "react-lazy-load";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import content from "../content/login";
+import { useLoginMutation } from "../redux/services/userSlice";
+import toast from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+    const [ login ] = useLoginMutation();
+    const navigate = useNavigate();
+
     const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const credentials = {
+                email,
+                password,
+            };
+
+            const result = await login(credentials).unwrap();
+            console.log('Login result: ',result);
+            toast.success('Login successful!');
+            localStorage.setItem('token', result.token);
+            navigate('/');
+        } catch (error) {
+            console.log('Error in login: ',error);
+            toast.error(error.message);
+        }
+    };
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -47,9 +75,10 @@ export default function Login() {
                 </div>
 
                 {/* Form */}
-                <form className="flex flex-col w-full max-w-md space-y-12">
+                <form onSubmit={handleSubmit} className="flex flex-col w-full max-w-md space-y-12">
                     <input
                         type="email"
+                        onChange={(e) => setEmail(e.target.value)}
                         placeholder="Email"
                         className="border-b-2 border-primary3 bg-transparent w-full py-2 focus:outline-none"
                     />
@@ -57,6 +86,7 @@ export default function Login() {
                         {/* Password Input */}
                         <input
                             type={showPassword ? "text" : "password"}
+                            onChange={(e) => setPassword(e.target.value)}
                             placeholder="Password"
                             className="border-b-2 border-primary3 bg-transparent w-full py-2 focus:outline-none"
                         />
