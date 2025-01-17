@@ -13,9 +13,9 @@ export default function Navbar() {
     const navigate = useNavigate();
 
     return (
-        <section className='w-1/6'>
+        <section className='lg:w-1/6'>
             {/* desktop view */}
-            <div className='flex flex-col'>
+            <div className='hidden lg:flex flex-col'>
                 {/* logo */}
                 <LazyLoad className='w-20'>
                     <img src='/icons/logo-2.png' />
@@ -59,6 +59,8 @@ export default function Navbar() {
                     </div>
                 </div>
             </div>
+
+            {/* mobile view */}
         </section>
     )
 }

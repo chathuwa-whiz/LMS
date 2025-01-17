@@ -3,7 +3,7 @@ import Header from './Header'
 
 export default function Schedule() {
   return (
-    <section className='w-4/6 px-10'>
+    <section className='lg:w-4/6 lg:px-10 px-5 w-full'>
         <Header />
     </section>
   )
