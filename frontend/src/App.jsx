@@ -1,8 +1,8 @@
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Layout from './Layout/Layout';
-import Dashboard from './user/Dashboard';
 import Login from './user/Login';
 import Register from './user/Register';
+import DashboardLayout from './user/student/DashboardLayout';
 
 export default function App() {
   return (
@@ -10,7 +10,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
-            <Route index element={<Dashboard />} />
+            <Route index element={<DashboardLayout />} />
           </Route>
 
           <Route path='/login' element={<Login />} />
