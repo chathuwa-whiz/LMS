@@ -15,7 +15,12 @@ const AssesmentSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['Quiz', 'Assignment'],
+        enum: ['quiz', 'assignment'],
+        required: true,
+    },
+    state: {
+        type: String,
+        enum: ['completed', 'pending'],
         required: true,
     },
     guidlines: {
