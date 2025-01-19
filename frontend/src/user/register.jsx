@@ -16,7 +16,6 @@ export default function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [birthday, setBirthday] = useState("");
-    const [role, setRole] = useState("student");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,7 +27,7 @@ export default function Register() {
                 email,
                 password,
                 dateOfBirth: birthday,
-                role,
+                role: 'student',
             };
             
             const result = await register(user).unwrap();
@@ -125,17 +124,6 @@ export default function Register() {
                         placeholder="Birthday"
                         className="border-b-2 border-primary3 bg-transparent w-full py-2 focus:outline-none"
                     />
-                    <div className="flex items-center text-gray-700 gap-4">
-                        <span>I am a </span>
-                        <select
-                            className="bg-white px-4 py-2 rounded-lg text-gray-700 focus:outline-none"
-                            defaultValue="student"
-                            onChange={(e) => setRole(e.target.value)}
-                        >
-                            <option value="student">Student</option>
-                            <option value="teacher">Teacher</option>
-                        </select>
-                    </div>
                     <button
                         type="submit"
                         className="bg-primary3 text-primary1 font-semibold py-3 rounded-lg w-full hover:bg-primary2 transition"
