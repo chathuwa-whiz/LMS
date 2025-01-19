@@ -154,8 +154,7 @@ export default function Course() {
         {courses.map((course, index) => (
           <div
             key={index}
-            onClick={() => handleCourseClick(course)}
-            className="bg-primary2 w-52 h-60 rounded-xl p-2 overflow-hidden flex flex-col justify-between flex-shrink-0 hover:cursor-pointer"
+            className="bg-primary2 w-52 h-60 rounded-xl p-2 overflow-hidden flex flex-col justify-between flex-shrink-0"
           >
             <div className="h-1/2 w-full rounded-lg flex justify-center items-center bg-primary3">
               <LazyLoad className="w-24">
@@ -180,7 +179,9 @@ export default function Course() {
               </div>
 
               {/* go to course page */}
-              <div className="flex items-center justify-center h-10 w-10 bg-primary3 rounded-lg text-primary1 hover:cursor-pointer hover:scale-110 transition-transform">
+              <div 
+                onClick={() => handleCourseClick(course)}
+                className="flex items-center justify-center h-10 w-10 bg-primary3 rounded-lg text-primary1 hover:cursor-pointer hover:scale-110 transition-transform">
                 <FaChevronRight />
               </div>
             </div>
@@ -191,7 +192,7 @@ export default function Course() {
       {/* course details - appears when click on course card */}
       {selectedCourse && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10"
           onClick={closeModal}
         >
           <div className="w-full lg:w-1/2 bg-primary2 rounded-xl p-4">
@@ -213,6 +214,14 @@ export default function Course() {
                   Rs. {course.price} / month
                 </span>
               </div>
+            </div>
+            <div className="flex justify-end">
+              <button 
+                onClick={() => console.log('go to modules')}
+                className="flex gap-4 items-center bg-primary3 text-primary1 rounded-lg px-4 py-2 mt-5">
+                <span>Modules</span>
+                <FaChevronRight />
+              </button>
             </div>
           </div>
         </div>
